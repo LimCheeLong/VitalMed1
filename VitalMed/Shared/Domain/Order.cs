@@ -8,7 +8,7 @@ namespace VitalMed.Shared.Domain
 {
     public class Order
     {
-        public int OrderID { get; set; }
+        public int ID { get; set; }
         public DateTime OrderDate { get; set; }
         public double TotalPrice { get; set; }
         public virtual CartItem Cart { get; set; }

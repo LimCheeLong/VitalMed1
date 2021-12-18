@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace VitalMed.Server.Data.Migrations
+namespace VitalMed.Server.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class AddedDefaultDataAndUser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,6 +26,8 @@ namespace VitalMed.Server.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -44,6 +46,20 @@ namespace VitalMed.Server.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Thumbnail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -191,6 +207,156 @@ namespace VitalMed.Server.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductPrice = table.Column<double>(type: "float", nullable: false),
+                    ProductDesc = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CategoryID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Products_Categories_CategoryID",
+                        column: x => x.CategoryID,
+                        principalTable: "Categories",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CartItems",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductQuantity = table.Column<int>(type: "int", nullable: false),
+                    ProductID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CartItems", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_CartItems_Products_ProductID",
+                        column: x => x.ProductID,
+                        principalTable: "Products",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Customers",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ContactNumber = table.Column<int>(type: "int", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CartID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customers", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Customers_CartItems_CartID",
+                        column: x => x.CartID,
+                        principalTable: "CartItems",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Favourites",
+                columns: table => new
+                {
+                    ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProductID = table.Column<int>(type: "int", nullable: true),
+                    CustomerID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Favourites", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Favourites_Customers_CustomerID",
+                        column: x => x.CustomerID,
+                        principalTable: "Customers",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Favourites_Products_ProductID",
+                        column: x => x.ProductID,
+                        principalTable: "Products",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TotalPrice = table.Column<double>(type: "float", nullable: false),
+                    CartID = table.Column<int>(type: "int", nullable: true),
+                    CustomerID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Orders_CartItems_CartID",
+                        column: x => x.CartID,
+                        principalTable: "CartItems",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Customers_CustomerID",
+                        column: x => x.CustomerID,
+                        principalTable: "Customers",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reviews",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ReviewDesc = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderID = table.Column<int>(type: "int", nullable: true),
+                    ProductID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reviews", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Orders_OrderID",
+                        column: x => x.OrderID,
+                        principalTable: "Orders",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Products_ProductID",
+                        column: x => x.ProductID,
+                        principalTable: "Products",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "ID", "CategoryID", "ProductDesc", "ProductImage", "ProductName", "ProductPrice" },
+                values: new object[] { 1, null, "Vaccums dirt and dust from the ground", null, "Vaccum Cleaner", 25.989999999999998 });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -231,6 +397,16 @@ namespace VitalMed.Server.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CartItems_ProductID",
+                table: "CartItems",
+                column: "ProductID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customers_CartID",
+                table: "Customers",
+                column: "CartID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DeviceCodes_DeviceCode",
                 table: "DeviceCodes",
                 column: "DeviceCode",
@@ -240,6 +416,26 @@ namespace VitalMed.Server.Data.Migrations
                 name: "IX_DeviceCodes_Expiration",
                 table: "DeviceCodes",
                 column: "Expiration");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Favourites_CustomerID",
+                table: "Favourites",
+                column: "CustomerID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Favourites_ProductID",
+                table: "Favourites",
+                column: "ProductID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_CartID",
+                table: "Orders",
+                column: "CartID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_CustomerID",
+                table: "Orders",
+                column: "CustomerID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PersistedGrants_Expiration",
@@ -255,6 +451,21 @@ namespace VitalMed.Server.Data.Migrations
                 name: "IX_PersistedGrants_SubjectId_SessionId_Type",
                 table: "PersistedGrants",
                 columns: new[] { "SubjectId", "SessionId", "Type" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_CategoryID",
+                table: "Products",
+                column: "CategoryID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reviews_OrderID",
+                table: "Reviews",
+                column: "OrderID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reviews_ProductID",
+                table: "Reviews",
+                column: "ProductID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -278,13 +489,34 @@ namespace VitalMed.Server.Data.Migrations
                 name: "DeviceCodes");
 
             migrationBuilder.DropTable(
+                name: "Favourites");
+
+            migrationBuilder.DropTable(
                 name: "PersistedGrants");
+
+            migrationBuilder.DropTable(
+                name: "Reviews");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "CartItems");
+
+            migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
         }
     }
 }

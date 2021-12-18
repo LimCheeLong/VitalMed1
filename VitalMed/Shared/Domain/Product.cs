@@ -8,7 +8,7 @@ namespace VitalMed.Shared.Domain
 {
     public class Product
     {
-        public int ProductID { get; set; }
+        public int ID { get; set; }
         public string ProductName { get; set; }
         public double ProductPrice { get; set;}
         public string ProductDesc { get; set; }

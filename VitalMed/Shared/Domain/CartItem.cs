@@ -8,7 +8,7 @@ namespace VitalMed.Shared.Domain
 {
     public class CartItem
     {
-        public int CartItemID { get; set; }
+        public int ID { get; set; }
         public int ProductQuantity { get; set; }
         public virtual Product Product { get; set; }
     }

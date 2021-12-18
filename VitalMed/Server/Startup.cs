@@ -9,7 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
 using VitalMed.Server.Data;
+using VitalMed.Server.IRepository;
 using VitalMed.Server.Models;
+using VitalMed.Server.Repository;
 
 namespace VitalMed.Server
 {
@@ -40,6 +42,8 @@ namespace VitalMed.Server
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

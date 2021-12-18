@@ -9,7 +9,7 @@ namespace VitalMed.Shared.Domain
 {
     public class Category
     {
-        public int CategoryID { get; set; }
+        public int ID { get; set; }
         public string Thumbnail { get; set; }
         public string Name { get; set; }
     }

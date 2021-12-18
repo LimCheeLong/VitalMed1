@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VitalMed.Server.Data;
 
-namespace VitalMed.Server.Data.Migrations
+namespace VitalMed.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211214085659_AddedNameToUser")]
-    partial class AddedNameToUser
+    [Migration("20211218195201_AddedDefaultDataAndUser")]
+    partial class AddedDefaultDataAndUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -330,6 +330,181 @@ namespace VitalMed.Server.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("VitalMed.Shared.Domain.CartItem", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductQuantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("CartItems");
+                });
+
+            modelBuilder.Entity("VitalMed.Shared.Domain.Category", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Thumbnail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("VitalMed.Shared.Domain.Customer", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CartID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ContactNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CartID");
+
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("VitalMed.Shared.Domain.Favourite", b =>
+                {
+                    b.Property<string>("ID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("CustomerID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProductID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CustomerID");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("Favourites");
+                });
+
+            modelBuilder.Entity("VitalMed.Shared.Domain.Order", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CartID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CustomerID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("float");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CartID");
+
+                    b.HasIndex("CustomerID");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("VitalMed.Shared.Domain.Product", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CategoryID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProductDesc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("ProductPrice")
+                        .HasColumnType("float");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CategoryID");
+
+                    b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            ProductDesc = "Vaccums dirt and dust from the ground",
+                            ProductName = "Vaccum Cleaner",
+                            ProductPrice = 25.989999999999998
+                        });
+                });
+
+            modelBuilder.Entity("VitalMed.Shared.Domain.Review", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("OrderID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReviewDesc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("OrderID");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("Reviews");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -379,6 +554,78 @@ namespace VitalMed.Server.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("VitalMed.Shared.Domain.CartItem", b =>
+                {
+                    b.HasOne("VitalMed.Shared.Domain.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductID");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("VitalMed.Shared.Domain.Customer", b =>
+                {
+                    b.HasOne("VitalMed.Shared.Domain.CartItem", "Cart")
+                        .WithMany()
+                        .HasForeignKey("CartID");
+
+                    b.Navigation("Cart");
+                });
+
+            modelBuilder.Entity("VitalMed.Shared.Domain.Favourite", b =>
+                {
+                    b.HasOne("VitalMed.Shared.Domain.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerID");
+
+                    b.HasOne("VitalMed.Shared.Domain.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductID");
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("VitalMed.Shared.Domain.Order", b =>
+                {
+                    b.HasOne("VitalMed.Shared.Domain.CartItem", "Cart")
+                        .WithMany()
+                        .HasForeignKey("CartID");
+
+                    b.HasOne("VitalMed.Shared.Domain.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerID");
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("VitalMed.Shared.Domain.Product", b =>
+                {
+                    b.HasOne("VitalMed.Shared.Domain.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryID");
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("VitalMed.Shared.Domain.Review", b =>
+                {
+                    b.HasOne("VitalMed.Shared.Domain.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderID");
+
+                    b.HasOne("VitalMed.Shared.Domain.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductID");
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
                 });
 #pragma warning restore 612, 618
         }
