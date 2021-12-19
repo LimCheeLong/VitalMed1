@@ -364,6 +364,14 @@ namespace VitalMed.Server.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Name = "Health Products",
+                            Thumbnail = "Empty for now"
+                        });
                 });
 
             modelBuilder.Entity("VitalMed.Shared.Domain.Customer", b =>
@@ -390,6 +398,15 @@ namespace VitalMed.Server.Migrations
                     b.HasIndex("CartID");
 
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Address = "416 Bedok North Ave 2 #07-51",
+                            ContactNumber = 83183903,
+                            Email = "limcheelong4@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("VitalMed.Shared.Domain.Favourite", b =>
@@ -472,8 +489,8 @@ namespace VitalMed.Server.Migrations
                         new
                         {
                             ID = 1,
-                            ProductDesc = "Vaccums dirt and dust from the ground",
-                            ProductName = "Vaccum Cleaner",
+                            ProductDesc = "Supplies you with Vitamin C",
+                            ProductName = "Vitamin C",
                             ProductPrice = 25.989999999999998
                         });
                 });

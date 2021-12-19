@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VitalMed.Server", "VitalMed\Server\VitalMed.Server.csproj", "{FC063705-886E-410E-B83F-50E3CB77DCCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VitalMed.Server", "VitalMed\Server\VitalMed.Server.csproj", "{FC063705-886E-410E-B83F-50E3CB77DCCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VitalMed.Client", "VitalMed\Client\VitalMed.Client.csproj", "{33AD55FA-2368-4D0F-ACC0-356BD23184FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VitalMed.Client", "VitalMed\Client\VitalMed.Client.csproj", "{33AD55FA-2368-4D0F-ACC0-356BD23184FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VitalMed.Shared", "VitalMed\Shared\VitalMed.Shared.csproj", "{44CE14C3-B9A4-4E20-87CF-C801091AD786}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VitalMed.Shared", "VitalMed\Shared\VitalMed.Shared.csproj", "{44CE14C3-B9A4-4E20-87CF-C801091AD786}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -8,17 +8,17 @@ using VitalMed.Shared.Domain;
 
 namespace VitalMed.Server.Configurations.Entities
 {
-    public class Product1Configuration : IEntityTypeConfiguration<Product>
+    public class Customer1Configuration : IEntityTypeConfiguration<Customer>
     {
-        public void Configure(EntityTypeBuilder<Product> builder)
+        public void Configure(EntityTypeBuilder<Customer> builder)
         {
             builder.HasData(
-             new Product
+             new Customer
              {
                  ID = 1,
-                 ProductName = "Vitamin C",
-                 ProductPrice = 25.99,
-                 ProductDesc = "Supplies you with Vitamin C"
+                 ContactNumber = 83183903,
+                 Email ="limcheelong4@gmail.com",
+                 Address = "416 Bedok North Ave 2 #07-51",
              }
             );
         }

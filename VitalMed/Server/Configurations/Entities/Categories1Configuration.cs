@@ -8,17 +8,16 @@ using VitalMed.Shared.Domain;
 
 namespace VitalMed.Server.Configurations.Entities
 {
-    public class Product1Configuration : IEntityTypeConfiguration<Product>
+    public class Categories1Configuration : IEntityTypeConfiguration<Category>
     {
-        public void Configure(EntityTypeBuilder<Product> builder)
+        public void Configure(EntityTypeBuilder<Category> builder)
         {
             builder.HasData(
-             new Product
+             new Category
              {
                  ID = 1,
-                 ProductName = "Vitamin C",
-                 ProductPrice = 25.99,
-                 ProductDesc = "Supplies you with Vitamin C"
+                 Thumbnail = "Empty for now",
+                 Name = "Health Products"
              }
             );
         }

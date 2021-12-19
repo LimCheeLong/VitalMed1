@@ -32,6 +32,8 @@ namespace VitalMed.Server.Data
         {
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new Product1Configuration());
+            builder.ApplyConfiguration(new Categories1Configuration());
+            builder.ApplyConfiguration(new Customer1Configuration());
         }
 
 

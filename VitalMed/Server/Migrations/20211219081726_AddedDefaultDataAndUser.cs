@@ -353,9 +353,19 @@ namespace VitalMed.Server.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "ID", "Name", "Thumbnail" },
+                values: new object[] { 1, "Health Products", "Empty for now" });
+
+            migrationBuilder.InsertData(
+                table: "Customers",
+                columns: new[] { "ID", "Address", "CartID", "ContactNumber", "Email" },
+                values: new object[] { 1, "416 Bedok North Ave 2 #07-51", null, 83183903, "limcheelong4@gmail.com" });
+
+            migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "ID", "CategoryID", "ProductDesc", "ProductImage", "ProductName", "ProductPrice" },
-                values: new object[] { 1, null, "Vaccums dirt and dust from the ground", null, "Vaccum Cleaner", 25.989999999999998 });
+                values: new object[] { 1, null, "Supplies you with Vitamin C", null, "Vitamin C", 25.989999999999998 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
