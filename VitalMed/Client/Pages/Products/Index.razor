@@ -6,6 +6,13 @@
 
 <h3 class="card-title">List of products</h3>
 
+<a href="/products/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Add New Product
+</a>
+<br />
+<br />
+
 <link rel="stylesheet" type="text/css" href="/css/Product.css" />
 
 @if (Products == null)
@@ -19,12 +26,12 @@ else
             <tr>
                 <th>Name</th>
                 <th>Description</th>
-                <th></th>
                 <th>Price</th>
-                <th></th>
-                <th>View Item</th>
-                <th></th>
+                <th>Image</th>
+                <th>View Product</th>
                 <th>Add to cart</th>
+                <th>Edit Product</th>
+                <th>Delete Product</th>
             </tr>
         </thead>
         <tbody>
@@ -33,24 +40,34 @@ else
             <tr>
                 <td>@product.ProductName</td>
                 <td>@product.ProductDesc</td>
-                <th></th>
                 <td>$@product.ProductPrice</td>
-                <th></th>
                 <td>
-                    <a href="products/view/@product.ProductName" class="btn btn-primary">
+                    <img style="width:80px;height:80px" src="@product.ProductImage"/>
+                </td>
+                <td>
+                    <a href="products/view/@product.ID" class="btn btn-primary">
                         <span class="oi oi-book"></span>
                     </a>
                 </td>
-                <td></td>
                 <td>
                     <a href="/products/add/@product.ID" class="btn btn-warning">
                         <span class="oi oi-cart"></span>
                     </a>
                 </td>
+                <td>
+                    <a href="/products/edit/@product.ID" class="btn btn-warning">
+                        <span class="oi oi-pencil"></span>
+                    </a>
+                </td>
+                <td>
+                    <button class="btn btn-danger" @onclick="@(()=>Delete(product.ID))">
+                        <span class="oi oi-delete"></span>
+                    </button>
+                </td>
             </tr>
             }
-    </tbody>
-</table>
+        </tbody>
+    </table>
 }
 
 @code {
