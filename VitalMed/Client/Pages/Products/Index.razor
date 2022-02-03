@@ -42,7 +42,8 @@ else
                 <td>@product.ProductDesc</td>
                 <td>$@product.ProductPrice</td>
                 <td>
-                    <img style="width:80px;height:80px" src="@product.ProductImage"/>
+                    <!--image link is stored in product.ProductImage, which is a string variable-->
+                    <img style="width:80px;height:80px" src="@product.ProductImage"/> 
                 </td>
                 <td>
                     <a href="products/view/@product.ID" class="btn btn-primary">
