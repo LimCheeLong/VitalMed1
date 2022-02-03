@@ -10,6 +10,11 @@ namespace VitalMed.Client.Static
         private static readonly string Prefix = "api";
 
         public static readonly string ProductsEndpoint = $"{Prefix}/products";
-        public static readonly string CategoriesEndpoint = $"{Prefix}/categories";
+        public static readonly string CategoriesEndpoint = $"{Prefix}/category";
+        public static readonly string CustomersEndpoint = $"{Prefix}/customer";
+        public static readonly string OrdersEndpoint = $"{Prefix}/orders";
+        public static readonly string FavouritesEndpoint = $"{Prefix}/favourites";
+        public static readonly string CartItemsEndpoint = $"{Prefix}/CartItems";
+        public static readonly string ReviewsEndpoint = $"{Prefix}/Reviews";
     }
 }

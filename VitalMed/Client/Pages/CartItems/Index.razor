@@ -1,0 +1,67 @@
+﻿@page "/cartitems/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+
+<h3 class="card-title">Items in Cart</h3>
+
+@if (CartItems == null)
+{
+    <div class="alert alert-info">Loading items in cart...</div>
+}
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Edit Category</th>
+                <th>Delete Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cartitems in CartItems)
+            {
+                <tr>
+                    <td>@cartitems.Name</td>
+                    <td>
+                        <!--image link is stored in product.ProductImage, which is a string variable-->
+                        <img style="width:100px;height:100px" src="@cartitems.ProductQuantity" />
+                    </td>
+                    <td>
+                        <a href="/categories/edit/@cartitems.ID" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(cartitems.ID))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<CartItem> CartItems;
+
+    protected async override Task OnInitializedAsync()
+    {
+        CartItems = await _client.GetFromJsonAsync<List<CartItem>>($"{Endpoints.CartItemsEndpoint}");
+    }
+
+    async Task Delete(int CartItemsID)
+    {
+        var cartitems = CartItems.First(q => q.ID == CartItemsID);
+        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {cartitems.ID}?");
+        if (confirm)
+        {
+            await _client.DeleteAsync($"{Endpoints.CartItemsEndpoint}/{CartItemsID}");
+            await OnInitializedAsync();
+        }
+    }
+}

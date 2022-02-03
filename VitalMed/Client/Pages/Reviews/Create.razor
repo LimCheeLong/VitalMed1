@@ -1,0 +1,51 @@
+﻿@page "/reviews/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Leave a Review</h3>
+<hr/>
+<br/>
+<EditForm Model="@review" OnValidSubmit="CreateReview">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <label>Customer Name</label>
+    <div>
+        <InputText @bind-Value="@review.Name" class="form-control" />
+        <ValidationMessage For="@(()=>review.Name)" />
+    </div>
+    <label>Product Name</label>
+    <div>
+        <InputText @bind-Value="@review.ProductName" class="form-control" />
+        <ValidationMessage For="@(()=>review.ProductName)" />
+    </div>
+    <label>Review Description</label>
+    <div>
+        <InputText @bind-Value="@review.ReviewDesc" class="form-control" />
+        <ValidationMessage For="@(()=>review.ReviewDesc)" />
+    </div>
+    <label>Product Rating ( Out of 5 )</label>
+    <div>
+        <InputText @bind-Value="@review.Rating" class="form-control" />
+        <ValidationMessage For="@(()=>review.Rating)" />
+    </div>
+    <button type="submit" class="btn btn-success btn-block">
+        Publish Review
+    </button>
+</EditForm>
+
+@code {
+    private IList<Review> Reviews;
+
+    Review review = new Review();
+
+    protected async override Task OnInitializedAsync()
+    {
+        Reviews = await _client.GetFromJsonAsync<List<Review>>($"{Endpoints.ReviewsEndpoint}");
+    }
+
+    private async Task CreateReview()
+    {
+        await _client.PostAsJsonAsync(Endpoints.ReviewsEndpoint, review);
+        _navManager.NavigateTo("/reviews/");
+    }
+}

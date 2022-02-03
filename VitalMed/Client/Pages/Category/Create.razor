@@ -1,0 +1,41 @@
+﻿@page "/categories/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Add a Category</h3>
+<hr />
+<br />
+<EditForm Model="@categories" OnValidSubmit="CreateCategory">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <label>Name</label>
+    <div>
+        <InputText @bind-Value="@categories.Name" class="form-control" />
+        <ValidationMessage For="@(()=>categories.Name)" />
+    </div>
+    <label>Thumbnail</label>
+    <div>
+        <InputText @bind-Value="@categories.Thumbnail" class="form-control" />
+        <ValidationMessage For="@(()=>categories.Thumbnail)" />
+    </div>
+    <button type="submit" class="btn btn-success btn-block">
+        Add Category
+    </button>
+</EditForm>
+
+@code {
+    private List<Category> Categories;
+
+    Category categories = new Category();
+
+    protected async override Task OnInitializedAsync()
+    {
+        Categories = await _client.GetFromJsonAsync<List<Category>>($"{Endpoints.CategoriesEndpoint}");
+    }
+
+    private async Task CreateCategory()
+    {
+        await _client.PostAsJsonAsync(Endpoints.CategoriesEndpoint, categories);
+        _navManager.NavigateTo("/categories/");
+    }
+}
