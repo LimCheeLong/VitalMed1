@@ -8,7 +8,7 @@ namespace VitalMed.Shared.Domain
 {
     public class Favourite
     {
-        public string ID { get; set; }
+        public int ID { get; set; }
         public virtual Product Product{ get; set; }
         public virtual Customer Customer { get; set; }
     }
