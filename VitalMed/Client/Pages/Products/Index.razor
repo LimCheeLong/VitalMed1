@@ -1,8 +1,9 @@
 ﻿@page "/products/"
 @inject HttpClient _client
 @inject IJSRuntime js
+@inject HttpInterceptorService _interceptor
+@implements IDisposable
 @attribute [Authorize]
-
 
 <h3 class="card-title">List of products</h3>
 
@@ -21,7 +22,7 @@
 }
 else
 {
-    <table class="table table-responsive">
+    <table class="table table-responsive" id="productsTable">
         <thead>
             <tr>
                 <th>Name</th>
@@ -38,36 +39,36 @@ else
         <tbody>
             @foreach (var product in Products)
             {
-            <tr>
-                <td>@product.ProductName</td>
-                <td>@product.ProductDesc</td>
-                <td>$@product.ProductPrice</td>
-                <td>@product.Category</td>
-                <td>
-                    <!--image link is stored in product.ProductImage, which is a string variable-->
-                    <img style="width:100px;height:100px" src="@product.ProductImage" />
-                </td>
-                <td>
-                    <a href="products/view/@product.ID" class="btn btn-primary">
-                        <span class="oi oi-book"></span>
-                    </a>
-                </td>
-                <td>
-                    <a href="/products/add/@product.ID" class="btn btn-warning">
-                        <span class="oi oi-cart"></span>
-                    </a>
-                </td>
-                <td>
-                    <a href="/products/edit/@product.ID" class="btn btn-warning">
-                        <span class="oi oi-pencil"></span>
-                    </a>
-                </td>
-                <td>
-                    <button class="btn btn-danger" @onclick="@(()=>Delete(product.ID))">
-                        <span class="oi oi-delete"></span>
-                    </button>
-                </td>
-            </tr>
+                <tr>
+                    <td>@product.ProductName</td>
+                    <td>@product.ProductDesc</td>
+                    <td>$@product.ProductPrice</td>
+                    <td>@product.CategoryID</td>
+                    <td>
+                        <!--image link is stored in product.ProductImage, which is a string variable-->
+                        <img style="width:100px;height:100px" src="@product.ProductImage" />
+                    </td>
+                    <td>
+                        <a href="products/view/@product.ID" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/products/add/@product.ID" class="btn btn-warning">
+                            <span class="oi oi-cart"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/products/edit/@product.ID" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(product.ID))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
@@ -78,6 +79,7 @@ else
 
     protected async override Task OnInitializedAsync()
     {
+        _interceptor.MonitorEvent();
         Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductsEndpoint}");
     }
 
@@ -90,5 +92,14 @@ else
             await _client.DeleteAsync($"{Endpoints.ProductsEndpoint}/{productID}");
             await OnInitializedAsync();
         }
+    }
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        await js.InvokeVoidAsync("AddDataTable", "#productsTable");
+    }
+    public void Dispose()
+    {
+        js.InvokeVoidAsync("DataTablesDispose", "#productsTable");
+        _interceptor.DisposeEvent();
     }
 }

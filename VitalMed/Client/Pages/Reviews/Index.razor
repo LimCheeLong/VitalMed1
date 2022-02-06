@@ -3,7 +3,6 @@
 @inject IJSRuntime js
 @attribute [Authorize]
 
-
 <h3 class="card-title">Reviews By Customer</h3>
 
 <a href="/reviews/create" class="btn btn-secondary">
@@ -34,22 +33,22 @@ else
         <tbody>
             @foreach (var review in Reviews)
             {
-            <tr>
-                <td>@review.Name</td>
-                <td>@review.ProductName</td>
-                <td>@review.ReviewDesc</td>
-                <td>@review.Rating</td>
-                <td>
-                    <a href="/categories/edit/@review.ID" class="btn btn-warning">
-                        <span class="oi oi-pencil"></span>
-                    </a>
-                </td>
-                <td>
-                    <button class="btn btn-danger" @onclick="@(()=>Delete(review.ID))">
-                        <span class="oi oi-delete"></span>
-                    </button>
-                </td>
-            </tr>
+                <tr>
+                    <td>@review.Name</td>
+                    <td>@review.ProductName</td>
+                    <td>@review.ReviewDesc</td>
+                    <td>@review.Rating</td>
+                    <td>
+                        <a href="/categories/edit/@review.ID" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(review.ID))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
@@ -62,7 +61,6 @@ else
     {
         Reviews = await _client.GetFromJsonAsync<List<Review>>($"{Endpoints.ReviewsEndpoint}");
     }
-
     async Task Delete(int reviewID)
     {
         var review = Reviews.First(q => q.ID == reviewID);

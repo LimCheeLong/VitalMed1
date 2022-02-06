@@ -10,8 +10,8 @@ using VitalMed.Server.Data;
 namespace VitalMed.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220206081506_newdb")]
-    partial class newdb
+    [Migration("20220206102639_new")]
+    partial class @new
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -346,6 +346,14 @@ namespace VitalMed.Server.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Cart");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Username = "seedUser"
+                        });
                 });
 
             modelBuilder.Entity("VitalMed.Shared.Domain.CartItem", b =>
@@ -461,6 +469,12 @@ namespace VitalMed.Server.Migrations
                     b.HasIndex("ProductID");
 
                     b.ToTable("Favourites");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1
+                        });
                 });
 
             modelBuilder.Entity("VitalMed.Shared.Domain.Order", b =>
@@ -489,6 +503,14 @@ namespace VitalMed.Server.Migrations
                     b.HasIndex("CustomerID");
 
                     b.ToTable("Orders");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            OrderDate = new DateTime(2022, 2, 6, 18, 26, 39, 265, DateTimeKind.Local).AddTicks(5319),
+                            TotalPrice = 0.0
+                        });
                 });
 
             modelBuilder.Entity("VitalMed.Shared.Domain.Product", b =>

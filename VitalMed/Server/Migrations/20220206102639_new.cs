@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VitalMed.Server.Migrations
 {
-    public partial class newdb : Migration
+    public partial class @new : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -372,6 +372,11 @@ namespace VitalMed.Server.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Cart",
+                columns: new[] { "ID", "Date", "Username" },
+                values: new object[] { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "seedUser" });
+
+            migrationBuilder.InsertData(
                 table: "CartItems",
                 columns: new[] { "ID", "Name", "ProductID", "ProductQuantity" },
                 values: new object[] { 1, null, null, 0 });
@@ -385,6 +390,16 @@ namespace VitalMed.Server.Migrations
                 table: "Customers",
                 columns: new[] { "ID", "Address", "CartID", "ContactNumber", "Email" },
                 values: new object[] { 1, "416 Bedok North Ave 2 #07-51", null, 83183903, "limcheelong4@gmail.com" });
+
+            migrationBuilder.InsertData(
+                table: "Favourites",
+                columns: new[] { "ID", "CustomerID", "ProductID" },
+                values: new object[] { 1, null, null });
+
+            migrationBuilder.InsertData(
+                table: "Orders",
+                columns: new[] { "ID", "CartID", "CustomerID", "OrderDate", "TotalPrice" },
+                values: new object[] { 1, null, null, new DateTime(2022, 2, 6, 18, 26, 39, 265, DateTimeKind.Local).AddTicks(5319), 0.0 });
 
             migrationBuilder.InsertData(
                 table: "Products",
