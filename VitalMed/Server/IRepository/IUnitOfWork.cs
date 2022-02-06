@@ -17,5 +17,6 @@ namespace VitalMed.Server.IRepository
         IGenericRepository<Product> Products { get; }
         IGenericRepository<Review> Reviews { get; }
         IGenericRepository<CartItem> CartItems { get; }
+        IGenericRepository<Cart> Cart { get; set; }
     }
 }

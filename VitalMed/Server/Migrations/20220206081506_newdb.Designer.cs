@@ -10,8 +10,8 @@ using VitalMed.Server.Data;
 namespace VitalMed.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211219081726_AddedDefaultDataAndUser")]
-    partial class AddedDefaultDataAndUser
+    [Migration("20220206081506_newdb")]
+    partial class newdb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -330,12 +330,33 @@ namespace VitalMed.Server.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("VitalMed.Shared.Domain.Cart", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Cart");
+                });
+
             modelBuilder.Entity("VitalMed.Shared.Domain.CartItem", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ProductID")
                         .HasColumnType("int");
@@ -348,6 +369,13 @@ namespace VitalMed.Server.Migrations
                     b.HasIndex("ProductID");
 
                     b.ToTable("CartItems");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            ProductQuantity = 0
+                        });
                 });
 
             modelBuilder.Entity("VitalMed.Shared.Domain.Category", b =>
@@ -384,6 +412,7 @@ namespace VitalMed.Server.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("CartID")
@@ -393,6 +422,7 @@ namespace VitalMed.Server.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -413,8 +443,10 @@ namespace VitalMed.Server.Migrations
 
             modelBuilder.Entity("VitalMed.Shared.Domain.Favourite", b =>
                 {
-                    b.Property<string>("ID")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("CustomerID")
                         .HasColumnType("int");
@@ -470,12 +502,14 @@ namespace VitalMed.Server.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ProductDesc")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProductImage")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProductName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("ProductPrice")
@@ -504,11 +538,20 @@ namespace VitalMed.Server.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("OrderID")
                         .HasColumnType("int");
 
                     b.Property<int?>("ProductID")
                         .HasColumnType("int");
+
+                    b.Property<string>("ProductName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Rating")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ReviewDesc")
                         .HasColumnType("nvarchar(max)");
@@ -520,6 +563,16 @@ namespace VitalMed.Server.Migrations
                     b.HasIndex("ProductID");
 
                     b.ToTable("Reviews");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Name = "Cheelong",
+                            ProductName = "Vitamin C",
+                            Rating = "5",
+                            ReviewDesc = "great"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

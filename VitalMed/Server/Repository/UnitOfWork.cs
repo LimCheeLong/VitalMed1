@@ -24,6 +24,7 @@ namespace VitalMed.Server.Repository
         private IGenericRepository<Review> _reviews;
         private IGenericRepository<CartItem> _cartitems;
         private IGenericRepository<Customer> _customers;
+        private IGenericRepository<Cart> _cart;
 
         private UserManager<ApplicationUser> _userManager;
 
@@ -47,6 +48,11 @@ namespace VitalMed.Server.Repository
             => _customers ??= new GenericRepository<Customer>(_context);
         public IGenericRepository<CartItem> CartItems
             => _cartitems ??= new GenericRepository<CartItem>(_context);
+        public IGenericRepository<Cart> Cart
+            => _cart ??= new GenericRepository<Cart>(_context);
+
+        public object Carts { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        IGenericRepository<Cart> IUnitOfWork.Cart { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public void Dispose()
         {

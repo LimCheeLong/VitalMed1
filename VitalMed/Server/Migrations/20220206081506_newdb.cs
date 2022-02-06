@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VitalMed.Server.Migrations
 {
-    public partial class AddedDefaultDataAndUser : Migration
+    public partial class newdb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,6 +46,20 @@ namespace VitalMed.Server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cart",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cart", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -213,9 +227,9 @@ namespace VitalMed.Server.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductPrice = table.Column<double>(type: "float", nullable: false),
-                    ProductDesc = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductDesc = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CategoryID = table.Column<int>(type: "int", nullable: true)
                 },
@@ -236,6 +250,7 @@ namespace VitalMed.Server.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ProductQuantity = table.Column<int>(type: "int", nullable: false),
                     ProductID = table.Column<int>(type: "int", nullable: true)
                 },
@@ -256,9 +271,9 @@ namespace VitalMed.Server.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ContactNumber = table.Column<int>(type: "int", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CartID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -276,7 +291,8 @@ namespace VitalMed.Server.Migrations
                 name: "Favourites",
                 columns: table => new
                 {
-                    ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ProductID = table.Column<int>(type: "int", nullable: true),
                     CustomerID = table.Column<int>(type: "int", nullable: true)
                 },
@@ -331,6 +347,9 @@ namespace VitalMed.Server.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Rating = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ReviewDesc = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OrderID = table.Column<int>(type: "int", nullable: true),
                     ProductID = table.Column<int>(type: "int", nullable: true)
@@ -353,6 +372,11 @@ namespace VitalMed.Server.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "CartItems",
+                columns: new[] { "ID", "Name", "ProductID", "ProductQuantity" },
+                values: new object[] { 1, null, null, 0 });
+
+            migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "ID", "Name", "Thumbnail" },
                 values: new object[] { 1, "Health Products", "Empty for now" });
@@ -366,6 +390,11 @@ namespace VitalMed.Server.Migrations
                 table: "Products",
                 columns: new[] { "ID", "CategoryID", "ProductDesc", "ProductImage", "ProductName", "ProductPrice" },
                 values: new object[] { 1, null, "Supplies you with Vitamin C", null, "Vitamin C", 25.989999999999998 });
+
+            migrationBuilder.InsertData(
+                table: "Reviews",
+                columns: new[] { "ID", "Name", "OrderID", "ProductID", "ProductName", "Rating", "ReviewDesc" },
+                values: new object[] { 1, "Cheelong", null, null, "Vitamin C", "5", "great" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -494,6 +523,9 @@ namespace VitalMed.Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Cart");
 
             migrationBuilder.DropTable(
                 name: "DeviceCodes");

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Vitalmed.Server.Configurations.Entities;
 using VitalMed.Server.Configurations.Entities;
 using VitalMed.Server.Models;
 using VitalMed.Shared.Domain;
@@ -34,7 +35,11 @@ namespace VitalMed.Server.Data
             builder.ApplyConfiguration(new Product1Configuration());
             builder.ApplyConfiguration(new Categories1Configuration());
             builder.ApplyConfiguration(new Customer1Configuration());
+            builder.ApplyConfiguration(new CartItemConfiguration());
+            builder.ApplyConfiguration(new Review1Configuration());
         }
+
+        public DbSet<VitalMed.Shared.Domain.Cart> Cart { get; set; }
 
 
     }
