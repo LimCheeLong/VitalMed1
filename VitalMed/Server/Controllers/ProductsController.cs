@@ -12,7 +12,6 @@ using VitalMed.Server.IRepository;
 namespace VitalMed.Server.Controllers
 {
     [Route("api/[controller]")]
-
     [ApiController]
     public class ProductsController : ControllerBase
     {

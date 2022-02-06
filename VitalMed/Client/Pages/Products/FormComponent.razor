@@ -1,6 +1,7 @@
 ﻿@inject HttpClient _client
 @inject HttpInterceptorService _interceptor
 @implements IDisposable
+@using VitalMed.Client.Pages.Products
 
 <EditForm Model="@product" OnValidSubmit="@OnValidSubmit">
     <DataAnnotationsValidator />
@@ -61,7 +62,7 @@
         </button>
     }
 
-    <BackToList Target="products" />
+    <BackToList Target="products"/>
 </EditForm>
 
 @code {
