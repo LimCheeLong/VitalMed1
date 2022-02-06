@@ -28,6 +28,7 @@ namespace VitalMed.Server.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<Cart> Carts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -37,6 +38,9 @@ namespace VitalMed.Server.Data
             builder.ApplyConfiguration(new Customer1Configuration());
             builder.ApplyConfiguration(new CartItemConfiguration());
             builder.ApplyConfiguration(new Review1Configuration());
+            builder.ApplyConfiguration(new CartConfiguration());
+            builder.ApplyConfiguration(new FavouriteConfiguration());
+            builder.ApplyConfiguration(new OrderConfiguration());
         }
 
         public DbSet<VitalMed.Shared.Domain.Cart> Cart { get; set; }

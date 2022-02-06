@@ -1,7 +1,7 @@
 ﻿<EditForm Model="@product" OnValidSubmit="@OnValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
-    <fieldset disabled="@Disabled" > 
+    <fieldset disabled="@Disabled">
         <label>Product Name</label>
         <div>
             <InputText @bind-Value="@product.ProductName" class="form-control" />
@@ -9,7 +9,7 @@
         </div>
     </fieldset>
 
-    <fieldset disabled="@Disabled" > 
+    <fieldset disabled="@Disabled">
         <label>Product Price</label>
         <div>
             <InputNumber @bind-Value="@product.ProductPrice" class="form-control" />
@@ -17,7 +17,7 @@
         </div>
     </fieldset>
 
-    <fieldset disabled="@Disabled" >
+    <fieldset disabled="@Disabled">
         <label>Product Description</label>
         <div>
             <InputText @bind-Value="@product.ProductDesc" class="form-control" />
@@ -25,7 +25,15 @@
         </div>
     </fieldset>
 
-    <fieldset disabled="@Disabled" >
+    <fieldset disabled="@Disabled">
+        <label>Product Category</label>
+        <div>
+            <InputSelect @bind-Value="@product.Category" class="form-control" />
+            <ValidationMessage For="@(()=>product.Category)" />
+        </div>
+    </fieldset>
+
+    <fieldset disabled="@Disabled">
         <label>Product Image</label>
         <div>
             <InputText @bind-Value="@product.ProductImage" class="form-control" />
@@ -33,14 +41,14 @@
         </div>
     </fieldset>
 
-    @if(!Disabled)
-{
-<button type="submit" class="btn btn-success btn-block">
-    @ButtonText
-</button>              
- }
+    @if (!Disabled)
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
 
-<BackToList Target="products" />
+    <BackToList Target="products" />
 </EditForm>
 
 @code {
