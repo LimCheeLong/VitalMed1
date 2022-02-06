@@ -10,8 +10,8 @@ using VitalMed.Server.Data;
 namespace VitalMed.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220206102639_new")]
-    partial class @new
+    [Migration("20220206165842_newdb")]
+    partial class newdb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -508,7 +508,7 @@ namespace VitalMed.Server.Migrations
                         new
                         {
                             ID = 1,
-                            OrderDate = new DateTime(2022, 2, 6, 18, 26, 39, 265, DateTimeKind.Local).AddTicks(5319),
+                            OrderDate = new DateTime(2022, 2, 7, 0, 58, 41, 636, DateTimeKind.Local).AddTicks(6152),
                             TotalPrice = 0.0
                         });
                 });
@@ -519,6 +519,9 @@ namespace VitalMed.Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("CategoryID")
                         .HasColumnType("int");
@@ -547,6 +550,7 @@ namespace VitalMed.Server.Migrations
                         new
                         {
                             ID = 1,
+                            CId = 0,
                             ProductDesc = "Supplies you with Vitamin C",
                             ProductName = "Vitamin C",
                             ProductPrice = 25.989999999999998
@@ -561,6 +565,7 @@ namespace VitalMed.Server.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("OrderID")
@@ -570,12 +575,15 @@ namespace VitalMed.Server.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ProductName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Rating")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ReviewDesc")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");

@@ -33,7 +33,7 @@
     <fieldset disabled="@Disabled">
         <label>Product Category</label>
         <div>
-            <InputSelect @bind-Value="@product.CategoryID" class="form-control">
+            <InputSelect @bind-Value="@product.CId" class="form-control">
                 <option value="">--Select Category--</option>
                 @if (Categories != null)
                 {
@@ -43,7 +43,7 @@
                     }
                 }
             </InputSelect>
-            <ValidationMessage For="@(()=> product.CategoryID)" />
+            <ValidationMessage For="@(()=> product.CId)" />
         </div>
     </fieldset>
 

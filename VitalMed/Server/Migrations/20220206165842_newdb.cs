@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VitalMed.Server.Migrations
 {
-    public partial class @new : Migration
+    public partial class newdb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -231,6 +231,7 @@ namespace VitalMed.Server.Migrations
                     ProductPrice = table.Column<double>(type: "float", nullable: false),
                     ProductDesc = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CId = table.Column<int>(type: "int", nullable: false),
                     CategoryID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -347,10 +348,10 @@ namespace VitalMed.Server.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Rating = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ReviewDesc = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Rating = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ReviewDesc = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OrderID = table.Column<int>(type: "int", nullable: true),
                     ProductID = table.Column<int>(type: "int", nullable: true)
                 },
@@ -399,12 +400,12 @@ namespace VitalMed.Server.Migrations
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "ID", "CartID", "CustomerID", "OrderDate", "TotalPrice" },
-                values: new object[] { 1, null, null, new DateTime(2022, 2, 6, 18, 26, 39, 265, DateTimeKind.Local).AddTicks(5319), 0.0 });
+                values: new object[] { 1, null, null, new DateTime(2022, 2, 7, 0, 58, 41, 636, DateTimeKind.Local).AddTicks(6152), 0.0 });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ID", "CategoryID", "ProductDesc", "ProductImage", "ProductName", "ProductPrice" },
-                values: new object[] { 1, null, "Supplies you with Vitamin C", null, "Vitamin C", 25.989999999999998 });
+                columns: new[] { "ID", "CId", "CategoryID", "ProductDesc", "ProductImage", "ProductName", "ProductPrice" },
+                values: new object[] { 1, 0, null, "Supplies you with Vitamin C", null, "Vitamin C", 25.989999999999998 });
 
             migrationBuilder.InsertData(
                 table: "Reviews",

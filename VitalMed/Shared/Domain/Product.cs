@@ -17,6 +17,7 @@ namespace VitalMed.Shared.Domain
         [Required]
         public string ProductDesc { get; set; }
         public string ProductImage { get; set; }
-        public virtual Category CategoryID { get; set; }
+        public int CId { get; set; }
+        public virtual Category Category { get; set; }
     }
 }
