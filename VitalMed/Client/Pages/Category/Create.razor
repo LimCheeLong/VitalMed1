@@ -5,23 +5,8 @@
 <h3 class="card-title">Add a Category</h3>
 <hr />
 <br />
-<EditForm Model="@categories" OnValidSubmit="CreateCategory">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-    <label>Name</label>
-    <div>
-        <InputText @bind-Value="@categories.Name" class="form-control" />
-        <ValidationMessage For="@(()=>categories.Name)" />
-    </div>
-    <label>Thumbnail</label>
-    <div>
-        <InputText @bind-Value="@categories.Thumbnail" class="form-control" />
-        <ValidationMessage For="@(()=>categories.Thumbnail)" />
-    </div>
-    <button type="submit" class="btn btn-success btn-block">
-        Add Category
-    </button>
-</EditForm>
+
+<FormComponent ButtonText="Create Category" categories="categories" OnValidSubmit="@CreateCategory" />
 
 @code {
     private List<Category> Categories;
