@@ -27,6 +27,7 @@ else
                 <th>Name</th>
                 <th>Description</th>
                 <th>Price</th>
+                <th>Category</th>
                 <th>Image</th>
                 <th>View Product</th>
                 <th>Add to cart</th>
@@ -41,9 +42,10 @@ else
                 <td>@product.ProductName</td>
                 <td>@product.ProductDesc</td>
                 <td>$@product.ProductPrice</td>
+                <td>@product.Category</td>
                 <td>
                     <!--image link is stored in product.ProductImage, which is a string variable-->
-                    <img style="width:100px;height:100px" src="@product.ProductImage"/> 
+                    <img style="width:100px;height:100px" src="@product.ProductImage" />
                 </td>
                 <td>
                     <a href="products/view/@product.ID" class="btn btn-primary">
