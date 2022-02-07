@@ -231,7 +231,7 @@ namespace VitalMed.Server.Migrations
                     ProductPrice = table.Column<double>(type: "float", nullable: false),
                     ProductDesc = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CId = table.Column<int>(type: "int", nullable: false),
+                    CId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CategoryID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -400,12 +400,12 @@ namespace VitalMed.Server.Migrations
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "ID", "CartID", "CustomerID", "OrderDate", "TotalPrice" },
-                values: new object[] { 1, null, null, new DateTime(2022, 2, 7, 0, 58, 41, 636, DateTimeKind.Local).AddTicks(6152), 0.0 });
+                values: new object[] { 1, null, null, new DateTime(2022, 2, 7, 13, 50, 30, 49, DateTimeKind.Local).AddTicks(1802), 0.0 });
 
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "ID", "CId", "CategoryID", "ProductDesc", "ProductImage", "ProductName", "ProductPrice" },
-                values: new object[] { 1, 0, null, "Supplies you with Vitamin C", null, "Vitamin C", 25.989999999999998 });
+                values: new object[] { 1, "Health products", null, "Supplies you with Vitamin C", null, "Vitamin C", 25.989999999999998 });
 
             migrationBuilder.InsertData(
                 table: "Reviews",
