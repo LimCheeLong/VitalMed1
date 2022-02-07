@@ -506,7 +506,7 @@ namespace VitalMed.Server.Migrations
                         new
                         {
                             ID = 1,
-                            OrderDate = new DateTime(2022, 2, 7, 0, 58, 41, 636, DateTimeKind.Local).AddTicks(6152),
+                            OrderDate = new DateTime(2022, 2, 7, 13, 50, 30, 49, DateTimeKind.Local).AddTicks(1802),
                             TotalPrice = 0.0
                         });
                 });
@@ -518,8 +518,8 @@ namespace VitalMed.Server.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CId")
-                        .HasColumnType("int");
+                    b.Property<string>("CId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("CategoryID")
                         .HasColumnType("int");
@@ -548,7 +548,7 @@ namespace VitalMed.Server.Migrations
                         new
                         {
                             ID = 1,
-                            CId = 0,
+                            CId = "Health products",
                             ProductDesc = "Supplies you with Vitamin C",
                             ProductName = "Vitamin C",
                             ProductPrice = 25.989999999999998

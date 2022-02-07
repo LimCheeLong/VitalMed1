@@ -18,9 +18,10 @@ namespace VitalMed.Server.Configurations.Entities
                  ID = 1,
                  ProductName = "Vitamin C",
                  ProductPrice = 25.99,
-                 ProductDesc = "Supplies you with Vitamin C"
+                 ProductDesc = "Supplies you with Vitamin C",
+                 CId = "Health products"
              }
-            );
+            ) ;
         }
     }
 }
