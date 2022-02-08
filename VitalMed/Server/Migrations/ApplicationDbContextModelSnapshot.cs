@@ -364,10 +364,13 @@ namespace VitalMed.Server.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ProductID")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductQuantity")
+                    b.Property<int>("product_ID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
@@ -380,7 +383,8 @@ namespace VitalMed.Server.Migrations
                         new
                         {
                             ID = 1,
-                            ProductQuantity = 0
+                            Price = 0,
+                            product_ID = 0
                         });
                 });
 
@@ -518,7 +522,7 @@ namespace VitalMed.Server.Migrations
                         new
                         {
                             ID = 1,
-                            OrderDate = new DateTime(2022, 2, 8, 11, 12, 1, 148, DateTimeKind.Local).AddTicks(1440),
+                            OrderDate = new DateTime(2022, 2, 8, 23, 10, 14, 187, DateTimeKind.Local).AddTicks(6105),
                             TotalPrice = 0.0
                         });
                 });

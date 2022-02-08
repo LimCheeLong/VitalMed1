@@ -16,7 +16,7 @@ else
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Quantity</th>
+                <th>Price</th>
                 <th>Edit Item</th>
                 <th>Delete Item</th>
                 <th>Checkout</th>
@@ -25,37 +25,37 @@ else
         <tbody>
             @foreach (var cartitems in CartItems)
             {
-            <tr>
-                <td>@cartitems.Name</td>
-                <td>
-                    <!--image link is stored in product.ProductImage, which is a string variable-->
-                    <img style="width:100px;height:100px" src="@cartitems.ProductQuantity" />
-                </td>
-                <td>
-                    <a href="/cartitems/edit/@cartitems.ID" class="btn btn-warning">
-                        <span class="oi oi-pencil"></span>
-                    </a>
-                </td>
-                <td>
-                    <button class="btn btn-danger" @onclick="@(()=>Delete(cartitems.ID))">
-                        <span class="oi oi-delete"></span>
-                    </button>
-                </td>
-                <td>
-                    idk how to make dis checkout button
-                </td>
-            </tr>
+                cartitems.Product = Products.First(q => q.ID == cartitems.ID);
+                <tr>
+                    <td>@cartitems.Product.ProductName</td>
+                    <td>$@cartitems.Product.ProductPrice</td>
+                    <td>
+                        <a href="/cartitems/edit/@cartitems.ID" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(cartitems.ID))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button >Checkout</button>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
 }
 
 @code {
+    private List<Product> Products;
     private List<CartItem> CartItems;
 
     protected async override Task OnInitializedAsync()
     {
         CartItems = await _client.GetFromJsonAsync<List<CartItem>>($"{Endpoints.CartItemsEndpoint}");
+        Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductsEndpoint}");
     }
 
     async Task Delete(int CartItemsID)

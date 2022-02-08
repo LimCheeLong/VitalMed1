@@ -252,7 +252,8 @@ namespace VitalMed.Server.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProductQuantity = table.Column<int>(type: "int", nullable: false),
+                    product_ID = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false),
                     ProductID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -379,8 +380,8 @@ namespace VitalMed.Server.Migrations
 
             migrationBuilder.InsertData(
                 table: "CartItems",
-                columns: new[] { "ID", "Name", "ProductID", "ProductQuantity" },
-                values: new object[] { 1, null, null, 0 });
+                columns: new[] { "ID", "Name", "Price", "ProductID", "product_ID" },
+                values: new object[] { 1, null, 0, null, 0 });
 
             migrationBuilder.InsertData(
                 table: "Categories",
@@ -405,7 +406,7 @@ namespace VitalMed.Server.Migrations
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "ID", "CartID", "CustomerID", "OrderDate", "TotalPrice" },
-                values: new object[] { 1, null, null, new DateTime(2022, 2, 8, 11, 12, 1, 148, DateTimeKind.Local).AddTicks(1440), 0.0 });
+                values: new object[] { 1, null, null, new DateTime(2022, 2, 8, 23, 10, 14, 187, DateTimeKind.Local).AddTicks(6105), 0.0 });
 
             migrationBuilder.InsertData(
                 table: "Products",

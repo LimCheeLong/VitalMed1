@@ -26,7 +26,7 @@ namespace VitalMed.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCartItems()
         {
-            var cartitem = await _unitOfWork.CartItems.GetAll();
+            var cartitem = await _unitOfWork.CartItems.GetAll(includes: q => q.Include(x=>x.Product));
             return Ok(cartitem);
         }
 
