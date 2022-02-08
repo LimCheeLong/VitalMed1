@@ -4,6 +4,7 @@
 @inject HttpInterceptorService _interceptor
 @implements IDisposable
 @attribute [Authorize]
+@inject NavigationManager _navManager
 
 <h3 class="card-title">List of products</h3>
 
@@ -54,9 +55,9 @@ else
                         </a>
                     </td>
                     <td>
-                        <a href="/products/add/@product.ID" class="btn btn-warning">
+                        <button class="btn btn-warning" @onclick="@AddCartItem">
                             <span class="oi oi-cart"></span>
-                        </a>
+                            </button>
                     </td>
                     <td>
                         <a href="/products/edit/@product.ID" class="btn btn-warning">
@@ -76,6 +77,8 @@ else
 
 @code {
     private List<Product> Products;
+    private List<CartItem> CartItems;
+    CartItem cartitem = new CartItem();
 
     protected async override Task OnInitializedAsync()
     {
@@ -102,4 +105,13 @@ else
         js.InvokeVoidAsync("DataTablesDispose", "#productsTable");
         _interceptor.DisposeEvent();
     }
+
+
+    private async Task AddCartItem()
+    {
+        await _client.PostAsJsonAsync(Endpoints.CartItemsEndpoint, cartitem);
+        _navManager.NavigateTo("/cartitems/");
+    }
+
+
 }

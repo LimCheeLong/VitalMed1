@@ -25,26 +25,26 @@ else
         <tbody>
             @foreach (var cartitems in CartItems)
             {
-            <tr>
-                <td>@cartitems.Name</td>
-                <td>
-                    <!--image link is stored in product.ProductImage, which is a string variable-->
-                    <img style="width:100px;height:100px" src="@cartitems.ProductQuantity" />
-                </td>
-                <td>
-                    <a href="/cartitems/edit/@cartitems.ID" class="btn btn-warning">
-                        <span class="oi oi-pencil"></span>
-                    </a>
-                </td>
-                <td>
-                    <button class="btn btn-danger" @onclick="@(()=>Delete(cartitems.ID))">
-                        <span class="oi oi-delete"></span>
-                    </button>
-                </td>
-                <td>
-                    idk how to make dis checkout button
-                </td>
-            </tr>
+                <tr>
+                    <td>@cartitems.Name</td>
+                    <td>
+                        <!--image link is stored in product.ProductImage, which is a string variable-->
+                        <img style="width:100px;height:100px" src="@cartitems.ProductQuantity" />
+                    </td>
+                    <td>
+                        <a href="/cartitems/edit/@cartitems.ID" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(cartitems.ID))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button >Checkout</button>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>

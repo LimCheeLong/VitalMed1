@@ -10,8 +10,8 @@ using VitalMed.Server.Data;
 namespace VitalMed.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220208031201_newdb")]
-    partial class newdb
+    [Migration("20220208073121_new3")]
+    partial class new3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -520,7 +520,7 @@ namespace VitalMed.Server.Migrations
                         new
                         {
                             ID = 1,
-                            OrderDate = new DateTime(2022, 2, 8, 11, 12, 1, 148, DateTimeKind.Local).AddTicks(1440),
+                            OrderDate = new DateTime(2022, 2, 8, 15, 31, 20, 664, DateTimeKind.Local).AddTicks(6798),
                             TotalPrice = 0.0
                         });
                 });

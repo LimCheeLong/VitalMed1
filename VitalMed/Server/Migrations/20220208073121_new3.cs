@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VitalMed.Server.Migrations
 {
-    public partial class newdb : Migration
+    public partial class new3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -405,7 +405,7 @@ namespace VitalMed.Server.Migrations
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "ID", "CartID", "CustomerID", "OrderDate", "TotalPrice" },
-                values: new object[] { 1, null, null, new DateTime(2022, 2, 8, 11, 12, 1, 148, DateTimeKind.Local).AddTicks(1440), 0.0 });
+                values: new object[] { 1, null, null, new DateTime(2022, 2, 8, 15, 31, 20, 664, DateTimeKind.Local).AddTicks(6798), 0.0 });
 
             migrationBuilder.InsertData(
                 table: "Products",
