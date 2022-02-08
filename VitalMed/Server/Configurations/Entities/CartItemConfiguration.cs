@@ -16,9 +16,9 @@ namespace Vitalmed.Server.Configurations.Entities
             builder.HasData(
              new CartItem
              {
-                 ID = 1
+                 ID = 1,
              }
-            );
+            ); ;
         }
     }
 }

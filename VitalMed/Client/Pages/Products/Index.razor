@@ -86,6 +86,12 @@ else
         Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductsEndpoint}");
     }
 
+    private async Task AddCartItem()
+    {
+        await _client.PostAsJsonAsync(Endpoints.CartItemsEndpoint, cartitem);
+        _interceptor.MonitorEvent();
+    }
+
     async Task Delete(int productID)
     {
         var product = Products.First(q => q.ID == productID);
@@ -104,13 +110,6 @@ else
     {
         js.InvokeVoidAsync("DataTablesDispose", "#productsTable");
         _interceptor.DisposeEvent();
-    }
-
-
-    private async Task AddCartItem()
-    {
-        await _client.PostAsJsonAsync(Endpoints.CartItemsEndpoint, cartitem);
-        _navManager.NavigateTo("/cartitems/");
     }
 
 
