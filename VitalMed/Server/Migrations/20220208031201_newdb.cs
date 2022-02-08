@@ -385,7 +385,12 @@ namespace VitalMed.Server.Migrations
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "ID", "Name", "Thumbnail" },
-                values: new object[] { 1, "Health Products", "Empty for now" });
+                values: new object[,]
+                {
+                    { 1, "Health Products", "https://cdn.discordapp.com/attachments/915960385323040778/940443791003877396/unknown.png" },
+                    { 2, "Baby Care Products", "https://cdn.discordapp.com/attachments/915960385323040778/940444204646158356/unknown.png" },
+                    { 3, "Oral Care Products", "https://cdn.discordapp.com/attachments/915960385323040778/940444449971007509/unknown.png" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Customers",
@@ -400,12 +405,17 @@ namespace VitalMed.Server.Migrations
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "ID", "CartID", "CustomerID", "OrderDate", "TotalPrice" },
-                values: new object[] { 1, null, null, new DateTime(2022, 2, 7, 13, 50, 30, 49, DateTimeKind.Local).AddTicks(1802), 0.0 });
+                values: new object[] { 1, null, null, new DateTime(2022, 2, 8, 11, 12, 1, 148, DateTimeKind.Local).AddTicks(1440), 0.0 });
 
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "ID", "CId", "CategoryID", "ProductDesc", "ProductImage", "ProductName", "ProductPrice" },
-                values: new object[] { 1, "Health products", null, "Supplies you with Vitamin C", null, "Vitamin C", 25.989999999999998 });
+                values: new object[,]
+                {
+                    { 1, "Health products", null, "Supplies you with Vitamin C", "https://medicaldialogues.in/h-upload/2020/05/13/128680-vitamin-c.jpg", "Vitamin C", 25.989999999999998 },
+                    { 2, "Baby Care Products", null, "Wipes suitable for babies", "https://gphb01pdazurefileshare.blob.core.windows.net/sys-master-hybris-media/h37/h52/16339841613854/600623-guardian-baby-care-soft-wipes-fragrance-free-triple-pack-3x90pcs-1-1050Wx1050H", "Baby Wipes", 6.9900000000000002 },
+                    { 3, "Oral Care Products", null, "Hard bristle, use with care", "https://www.cheatsheet.com/wp-content/uploads/2017/08/Toothbrushes-768x559.jpg", "Toothbrushes", 6.9900000000000002 }
+                });
 
             migrationBuilder.InsertData(
                 table: "Reviews",

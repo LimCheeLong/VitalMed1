@@ -10,7 +10,7 @@ using VitalMed.Server.Data;
 namespace VitalMed.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220207055030_newdb")]
+    [Migration("20220208031201_newdb")]
     partial class newdb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -408,7 +408,19 @@ namespace VitalMed.Server.Migrations
                         {
                             ID = 1,
                             Name = "Health Products",
-                            Thumbnail = "Empty for now"
+                            Thumbnail = "https://cdn.discordapp.com/attachments/915960385323040778/940443791003877396/unknown.png"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Name = "Baby Care Products",
+                            Thumbnail = "https://cdn.discordapp.com/attachments/915960385323040778/940444204646158356/unknown.png"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            Name = "Oral Care Products",
+                            Thumbnail = "https://cdn.discordapp.com/attachments/915960385323040778/940444449971007509/unknown.png"
                         });
                 });
 
@@ -508,7 +520,7 @@ namespace VitalMed.Server.Migrations
                         new
                         {
                             ID = 1,
-                            OrderDate = new DateTime(2022, 2, 7, 13, 50, 30, 49, DateTimeKind.Local).AddTicks(1802),
+                            OrderDate = new DateTime(2022, 2, 8, 11, 12, 1, 148, DateTimeKind.Local).AddTicks(1440),
                             TotalPrice = 0.0
                         });
                 });
@@ -552,8 +564,27 @@ namespace VitalMed.Server.Migrations
                             ID = 1,
                             CId = "Health products",
                             ProductDesc = "Supplies you with Vitamin C",
+                            ProductImage = "https://medicaldialogues.in/h-upload/2020/05/13/128680-vitamin-c.jpg",
                             ProductName = "Vitamin C",
                             ProductPrice = 25.989999999999998
+                        },
+                        new
+                        {
+                            ID = 2,
+                            CId = "Baby Care Products",
+                            ProductDesc = "Wipes suitable for babies",
+                            ProductImage = "https://gphb01pdazurefileshare.blob.core.windows.net/sys-master-hybris-media/h37/h52/16339841613854/600623-guardian-baby-care-soft-wipes-fragrance-free-triple-pack-3x90pcs-1-1050Wx1050H",
+                            ProductName = "Baby Wipes",
+                            ProductPrice = 6.9900000000000002
+                        },
+                        new
+                        {
+                            ID = 3,
+                            CId = "Oral Care Products",
+                            ProductDesc = "Hard bristle, use with care",
+                            ProductImage = "https://www.cheatsheet.com/wp-content/uploads/2017/08/Toothbrushes-768x559.jpg",
+                            ProductName = "Toothbrushes",
+                            ProductPrice = 6.9900000000000002
                         });
                 });
 
