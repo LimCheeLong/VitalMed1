@@ -1,4 +1,6 @@
-﻿<EditForm Model="@review" OnValidSubmit="@OnValidSubmit">
+﻿@inject HttpClient _client
+
+<EditForm Model="@review" OnValidSubmit="@OnValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
     <label>Customer Name</label>
@@ -8,8 +10,17 @@
     </div>
     <label>Product Name</label>
     <div>
-        <InputText @bind-Value="@review.ProductName" class="form-control" />
-        <ValidationMessage For="@(()=>review.ProductName)" />
+        <InputSelect @bind-Value="@review.ProductName" class="form-control">
+            <option value="">--Select Product--</option>
+            @if (Products != null)
+            {
+                foreach (var product in Products)
+                {
+                    <option value="@product.ProductName">@product.ProductName</option>
+                }
+            }
+        </InputSelect>
+        <ValidationMessage For="@(()=> review.ProductName)" />
     </div>
     <label>Review Description</label>
     <div>
@@ -30,4 +41,11 @@
     [Parameter] public Review review { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private IList<Product> Products;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductsEndpoint}");
+    }
 }

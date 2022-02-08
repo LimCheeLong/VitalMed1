@@ -16,8 +16,24 @@ namespace VitalMed.Server.Configurations.Entities
              new Category
              {
                  ID = 1,
-                 Thumbnail = "Empty for now",
+                 Thumbnail = "https://cdn.discordapp.com/attachments/915960385323040778/940443791003877396/unknown.png",
                  Name = "Health Products"
+             }
+            );
+            builder.HasData(
+             new Category
+             {
+                 ID = 2,
+                 Thumbnail = "https://cdn.discordapp.com/attachments/915960385323040778/940444204646158356/unknown.png",
+                 Name = "Baby Care Products"
+             }
+            );
+            builder.HasData(
+             new Category
+             {
+                 ID = 3,
+                 Thumbnail = "https://cdn.discordapp.com/attachments/915960385323040778/940444449971007509/unknown.png",
+                 Name = "Oral Care Products"
              }
             );
         }

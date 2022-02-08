@@ -13,7 +13,7 @@ namespace VitalMed.Shared.Domain
         [Required]
         public string ProductName { get; set; }
         [Required]
-        public double ProductPrice { get; set;}
+        public double ProductPrice { get; set; }
         [Required]
         public string ProductDesc { get; set; }
         public string ProductImage { get; set; }
