@@ -522,7 +522,7 @@ namespace VitalMed.Server.Migrations
                         new
                         {
                             ID = 1,
-                            OrderDate = new DateTime(2022, 2, 8, 23, 10, 14, 187, DateTimeKind.Local).AddTicks(6105),
+                            OrderDate = new DateTime(2022, 2, 9, 10, 15, 0, 337, DateTimeKind.Local).AddTicks(1361),
                             TotalPrice = 0.0
                         });
                 });

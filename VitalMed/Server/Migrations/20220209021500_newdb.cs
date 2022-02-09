@@ -406,7 +406,7 @@ namespace VitalMed.Server.Migrations
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "ID", "CartID", "CustomerID", "OrderDate", "TotalPrice" },
-                values: new object[] { 1, null, null, new DateTime(2022, 2, 8, 23, 10, 14, 187, DateTimeKind.Local).AddTicks(6105), 0.0 });
+                values: new object[] { 1, null, null, new DateTime(2022, 2, 9, 10, 15, 0, 337, DateTimeKind.Local).AddTicks(1361), 0.0 });
 
             migrationBuilder.InsertData(
                 table: "Products",
